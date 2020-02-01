@@ -4,6 +4,7 @@ const e = document.createElement.bind(document);
 const t = document.createTextNode.bind(document);
 
 // UI elements
+const container = $('#app')
 const bookFormEl = $('#book-form');
 const bookListEl = $('#book-list');
 const titleEl = $('#title');
@@ -38,6 +39,13 @@ UI.prototype.clearFields = function() {
   isbnEl.value = '';
 }
 
+UI.prototype.showAlert = function (message, type) {
+  const div = e('div');
+  div.appendChild(t(message));
+  div.classList.add('alert', type);
+  container.insertBefore(div, bookFormEl);
+  setTimeout(() => $('.alert').remove(), 3000);
+}
 
 // App
 document.addEventListener('DOMContentLoaded', function() {
@@ -50,18 +58,32 @@ document.addEventListener('DOMContentLoaded', function() {
     // Prevent default submit
     e.preventDefault();
   
-    // Get book data
-    const book = new Book({
-      title: titleEl.value,
-      author: authorEl.value,
-      isbn: isbnEl.value
-    });
-  
-    // Add book to list
-    ui.addBookToList(book);
-  
-    // Clear fields
-    ui.clearFields();
+    // Validate fields
+    if (!titleEl.value || !authorEl.value || !isbnEl.value) {
+
+      // Show error message
+      ui.showAlert('All fields required', 'error');
+
+    } else {
+      
+      // Get book data
+      const book = new Book({
+        title: titleEl.value,
+        author: authorEl.value,
+        isbn: isbnEl.value
+      });
+    
+      // Add book to list
+      ui.addBookToList(book);
+    
+      // Clear fields
+      ui.clearFields();
+
+      // Show success message
+      ui.showAlert('Book successfully added', 'success');
+
+    }
+
   });
 
 })

@@ -6,9 +6,9 @@
 }
 
 .success {
-  color: green;
+  background-color: green;
 }
 
 .error {
-  color: red;
+  background-color: red;
 }
