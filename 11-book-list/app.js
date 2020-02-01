@@ -88,6 +88,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Add event handler for remove
   bookListEl.addEventListener('click', function(e) {
+    // Prevent default reload
+    e.preventDefault();
+
+    // Check for deletion from parent
     if (e.target.classList.contains('delete')) {
       // Remove book
       bookListEl.removeChild(e.target.parentElement.parentElement);
