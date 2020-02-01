@@ -86,4 +86,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   });
 
+  // Add event handler for remove
+  bookListEl.addEventListener('click', function(e) {
+    if (e.target.classList.contains('delete')) {
+      // Remove book
+      bookListEl.removeChild(e.target.parentElement.parentElement);
+
+      // Show success message
+      ui.showAlert('Book successfully removed', 'success');
+    }
+  })
+
 })
