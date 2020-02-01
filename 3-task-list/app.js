@@ -1,5 +1,5 @@
 // Service
-import TaskService from "./api.js";
+import TaskService from "./api.js.js";
 
 
 // Functions shorthands
