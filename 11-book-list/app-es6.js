@@ -14,11 +14,14 @@ const isbnEl = $('#isbn');
 
 // Classes
 class LocalStorage {
+  static listBooks() {
+    return JSON.parse(localStorage.getItem('books')) || [];
+  }
   static createBook(books, book) {
     return localStorage.setItem('books', JSON.stringify([...books, book]));
   }
-  static listBooks() {
-    return JSON.parse(localStorage.getItem('books'));
+  static deleteBook(books, isbn) {
+    return localStorage.setItem('books', JSON.stringify([...books.filter(book => book.isbn != isbn)]));
   }
 }
 
@@ -34,6 +37,7 @@ class UI {
   constructor() { }
   addBookToList(book) {
     const row = e('tr');
+    row.dataset.isbn = book.isbn;
     row.innerHTML = `
     <td>${book.title}</td>
     <td>${book.author}</td>
@@ -41,6 +45,10 @@ class UI {
     <td><a href="#" class="delete">X</a></td>
   `;
     bookListEl.appendChild(row);
+  }
+  addBooksToList(books) {
+    while(bookListEl.firstChild) bookListEl.removeChild(bookListEl.firstChild);
+    books.forEach(book => this.addBookToList(book), this);
   }
   clearFields() {
     titleEl.value = '';
@@ -64,11 +72,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Instantiate app
   const ui = new UI();
-  const books = LocalStorage.listBooks();
+  let books = LocalStorage.listBooks();
 
-  books.forEach(book => {
-    ui.addBookToList(book);
-  });
+  // Initial render
+  ui.addBooksToList(books);
 
   // Add event handler for submit
   bookFormEl.addEventListener('submit', function(e) {
@@ -93,8 +100,11 @@ document.addEventListener('DOMContentLoaded', function() {
       // Persist in local storage
       LocalStorage.createBook(books, book);
 
-      // Add book to list
-      ui.addBookToList(book);
+      // Refresh books
+      books = LocalStorage.listBooks();
+
+      // Refresh UI
+      ui.addBooksToList(books);
     
       // Clear fields
       ui.clearFields();
@@ -113,8 +123,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check for deletion from parent
     if (e.target.classList.contains('delete')) {
-      // Remove book
-      bookListEl.removeChild(e.target.parentElement.parentElement);
+
+      // Remove from local storage
+      LocalStorage.deleteBook(books, e.target.parentElement.parentElement.dataset.isbn);
+
+      // Refresh books
+      books = LocalStorage.listBooks();
+
+      // Refresh UI
+      ui.addBooksToList(books);
 
       // Show success message
       ui.showAlert('Book successfully removed', 'success');
