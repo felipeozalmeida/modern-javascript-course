@@ -17,6 +17,9 @@ class LocalStorage {
   static createBook(books, book) {
     return localStorage.setItem('books', JSON.stringify([...books, book]));
   }
+  static listBooks() {
+    return JSON.parse(localStorage.getItem('books'));
+  }
 }
 
 class Book {
@@ -61,6 +64,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Instantiate app
   const ui = new UI();
+  const books = LocalStorage.listBooks();
+
+  books.forEach(book => {
+    ui.addBookToList(book);
+  });
 
   // Add event handler for submit
   bookFormEl.addEventListener('submit', function(e) {
@@ -83,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     
       // Persist in local storage
-      LocalStorage.createBook([], book);
+      LocalStorage.createBook(books, book);
 
       // Add book to list
       ui.addBookToList(book);
