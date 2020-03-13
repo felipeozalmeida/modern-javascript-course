@@ -13,6 +13,12 @@ const isbnEl = $('#isbn');
 
 
 // Classes
+class LocalStorage {
+  static createBook(books, book) {
+    return localStorage.setItem('books', JSON.stringify([...books, book]));
+  }
+}
+
 class Book {
   constructor(args) {
     this.title = args && args.title ? args.title : 'Unknown';
@@ -76,6 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
         isbn: isbnEl.value
       });
     
+      // Persist in local storage
+      LocalStorage.createBook([], book);
+
       // Add book to list
       ui.addBookToList(book);
     
