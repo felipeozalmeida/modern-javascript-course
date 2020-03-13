@@ -13,6 +13,18 @@ const isbnEl = $('#isbn');
 
 
 // Classes
+class LocalStorage {
+  static listBooks() {
+    return JSON.parse(localStorage.getItem('books')) || [];
+  }
+  static createBook(books, book) {
+    return localStorage.setItem('books', JSON.stringify([...books, book]));
+  }
+  static deleteBook(books, isbn) {
+    return localStorage.setItem('books', JSON.stringify([...books.filter(book => book.isbn != isbn)]));
+  }
+}
+
 class Book {
   constructor(args) {
     this.title = args && args.title ? args.title : 'Unknown';
@@ -25,6 +37,7 @@ class UI {
   constructor() { }
   addBookToList(book) {
     const row = e('tr');
+    row.dataset.isbn = book.isbn;
     row.innerHTML = `
     <td>${book.title}</td>
     <td>${book.author}</td>
@@ -32,6 +45,10 @@ class UI {
     <td><a href="#" class="delete">X</a></td>
   `;
     bookListEl.appendChild(row);
+  }
+  addBooksToList(books) {
+    while(bookListEl.firstChild) bookListEl.removeChild(bookListEl.firstChild);
+    books.forEach(book => this.addBookToList(book), this);
   }
   clearFields() {
     titleEl.value = '';
@@ -48,13 +65,15 @@ class UI {
 }
 
 
-
-
 // App
 document.addEventListener('DOMContentLoaded', function() {
 
   // Instantiate app
   const ui = new UI();
+  let books = LocalStorage.listBooks();
+
+  // Initial render
+  ui.addBooksToList(books);
 
   // Add event handler for submit
   bookFormEl.addEventListener('submit', function(e) {
@@ -76,8 +95,14 @@ document.addEventListener('DOMContentLoaded', function() {
         isbn: isbnEl.value
       });
     
-      // Add book to list
-      ui.addBookToList(book);
+      // Persist in local storage
+      LocalStorage.createBook(books, book);
+
+      // Refresh books
+      books = LocalStorage.listBooks();
+
+      // Refresh UI
+      ui.addBooksToList(books);
     
       // Clear fields
       ui.clearFields();
@@ -96,12 +121,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Check for deletion from parent
     if (e.target.classList.contains('delete')) {
-      // Remove book
-      bookListEl.removeChild(e.target.parentElement.parentElement);
+
+      // Remove from local storage
+      LocalStorage.deleteBook(books, e.target.parentElement.parentElement.dataset.isbn);
+
+      // Refresh books
+      books = LocalStorage.listBooks();
+
+      // Refresh UI
+      ui.addBooksToList(books);
 
       // Show success message
       ui.showAlert('Book successfully removed', 'success');
     }
-  })
+  });
 
-})
+});
