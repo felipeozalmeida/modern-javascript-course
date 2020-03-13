@@ -65,8 +65,6 @@ class UI {
 }
 
 
-
-
 // App
 document.addEventListener('DOMContentLoaded', function() {
 
@@ -136,6 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
       // Show success message
       ui.showAlert('Book successfully removed', 'success');
     }
-  })
+  });
 
-})
+});
