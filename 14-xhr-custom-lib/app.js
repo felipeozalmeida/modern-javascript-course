@@ -10,7 +10,7 @@ var http = new XHR();
 //     }
 // );
 
-const body = {
+var body = {
     title: "Modern development with Vue and Typescript",
     body: "Or how a tiny framework has made it into the giants",
     userId: 1
