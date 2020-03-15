@@ -22,11 +22,11 @@ var http = new XHR();
 //     }
 // );
 
-var body = {
-    title: "Modern development with Vue and Typescript",
-    body: "Or how a tiny framework has made it into the giants",
-    userId: 1
-}
+// var body = {
+//     title: "Modern development with Vue and Typescript",
+//     body: "Or how a tiny framework has made it into the giants",
+//     userId: 1
+// }
 
 // http.post(
 //     "https://jsonplaceholder.typicode.com/posts",
@@ -40,13 +40,23 @@ var body = {
 //     }
 // );
 
-http.put(
+// http.put(
+//     "https://jsonplaceholder.typicode.com/posts/1",
+//     body,
+//     function(err) {
+//         console.log(err);
+//     },
+//     function(res) {
+//         console.log(res.data);
+//     }
+// );
+
+http.delete(
     "https://jsonplaceholder.typicode.com/posts/1",
-    body,
     function(err) {
         console.log(err);
     },
     function(res) {
-        console.log(res.data);
+        console.log("Post deleted");
     }
 );
