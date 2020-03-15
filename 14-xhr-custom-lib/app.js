@@ -28,13 +28,25 @@ var body = {
     userId: 1
 }
 
-http.post(
-    "https://jsonplaceholder.typicode.com/posts",
+// http.post(
+//     "https://jsonplaceholder.typicode.com/posts",
+//     body,
+//     function(err) {
+//         console.log(err);
+//     },
+//     function(res) {
+//         console.log(res.data);
+//         postId = res.data.id;
+//     }
+// );
+
+http.put(
+    "https://jsonplaceholder.typicode.com/posts/1",
     body,
     function(err) {
         console.log(err);
     },
     function(res) {
-        console.log(res);
+        console.log(res.data);
     }
 );
