@@ -1,5 +1,17 @@
 var http = new XHR();
 
+// GET post
+// http.get(
+//     "https://jsonplaceholder.typicode.com/posts/1",
+//     function(err) {
+//         console.log(err);
+//     },
+//     function(res) {
+//         console.log(res.data);
+//     }
+// );
+
+// GET posts
 // http.get(
 //     "https://jsonplaceholder.typicode.com/posts",
 //     function(err) {
