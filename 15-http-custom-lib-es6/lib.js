@@ -1,10 +1,10 @@
-import { Utils } from "./utils.js";
+import { handleErrors } from "./utils.js";
 
 export default class HTTP {
     static get(url) {
         return new Promise((resolve, reject) => {
             fetch(url)
-                .then(response => Utils.handleErrors(response))
+                .then(response => handleErrors(response))
                 .then(validResponse => validResponse.json())
                 .then(json => resolve(json))
                 .catch(error => reject(error));
@@ -13,7 +13,7 @@ export default class HTTP {
     static post(url, body) {
         return new Promise((resolve, reject) => {
             fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
-                .then(response => Utils.handleErrors(response))
+                .then(response => handleErrors(response))
                 .then(validResponse => validResponse.json())
                 .then(json => resolve(json))
                 .catch(error => reject(error));
@@ -22,7 +22,7 @@ export default class HTTP {
     static put(url, body) {
         return new Promise((resolve, reject) => {
             fetch(url, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
-                .then(response => Utils.handleErrors(response))
+                .then(response => handleErrors(response))
                 .then(validResponse => validResponse.json())
                 .then(json => resolve(json))
                 .catch(error => reject(error));
@@ -31,7 +31,7 @@ export default class HTTP {
     static delete(url) {
         return new Promise((resolve, reject) => {
             fetch(url, { method: "DELETE" })
-                .then(response => Utils.handleErrors(response))
+                .then(response => handleErrors(response))
                 .then(validResponse => validResponse.json())
                 .then(json => resolve(json))
                 .catch(error => reject(error));
