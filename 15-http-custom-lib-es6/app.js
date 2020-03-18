@@ -19,20 +19,14 @@ const body = {
 //     .catch(err => console.log(err));
 
 // POST post (:P)
-http.post("https://jsonplaceholder.typicode.com/posts", body)
+// http.post("https://jsonplaceholder.typicode.com/posts", body)
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
+
+// PUT post
+http.put("https://jsonplaceholder.typicode.com/posts/1", body)
     .then(res => console.log(res))
     .catch(err => console.log(err));
-
-// http.put(
-//     "https://jsonplaceholder.typicode.com/posts/1",
-//     body,
-//     function(err) {
-//         console.log(err);
-//     },
-//     function(res) {
-//         console.log(res.data);
-//     }
-// );
 
 // http.delete(
 //     "https://jsonplaceholder.typicode.com/posts/1",
