@@ -28,19 +28,13 @@ export default class HTTP {
                 .catch(error => reject(error));
         })
     }
-    // delete(url, errorCallback, successCallback) {
-    //     this.http.open("DELETE", url);
-    //     this.http.onload = function() {
-    //         if (this.status >= 200 && this.status < 300) {
-    //             return successCallback({
-    //                 data: JSON.parse(this.response)
-    //             });
-    //         } else {
-    //             return errorCallback({
-    //                 status: this.status
-    //             });
-    //         }
-    //     };
-    //     this.http.send();
-    // }
+    static delete(url) {
+        return new Promise((resolve, reject) => {
+            fetch(url, { method: "DELETE" })
+                .then(response => Utils.handleErrors(response))
+                .then(validResponse => validResponse.json())
+                .then(json => resolve(json))
+                .catch(error => reject(error));
+        });
+    }
 }
