@@ -2,20 +2,14 @@
 import http from "./lib.js";
 
 // GET post
-http.get("https://jsonplaceholder.typicode.com/posts1")
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+// http.get("https://jsonplaceholder.typicode.com/posts/1")
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err));
 
 // GET posts
-// http.get(
-//     "https://jsonplaceholder.typicode.com/posts",
-//     function(err) {
-//         console.log(err);
-//     },
-//     function(res) {
-//         console.log(res.data);
-//     }
-// );
+http.get("https://jsonplaceholder.typicode.com/posts")
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
 
 // var body = {
 //     title: "Modern development with Vue and Typescript",
