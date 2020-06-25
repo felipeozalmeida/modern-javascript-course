@@ -30,5 +30,5 @@ import http from "./lib.js";
 
 // DELETE post
 http.delete("https://jsonplaceholder.typicode.com/posts/1")
-    .then(res => console.log("Post deleted!"))
+    .then(() => console.log("Post deleted!"))
     .catch(err => console.log(err));
