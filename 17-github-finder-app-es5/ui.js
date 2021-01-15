@@ -16,7 +16,7 @@ UI.prototype.showAlert = function (message, className) {
     this.clearAlert();
     var div = document.createElement('div');
     div.id = 'alert';
-    div.className = className;
+    div.className = className || 'alert alert-danger';
     div.appendChild(document.createTextNode(message));
     this.container.insertBefore(div, this.search);
     setTimeout(this.clearAlert, 3000);
@@ -109,6 +109,5 @@ UI.prototype.showProfile = function (user) {
             '</div>' +
         '</div>' +
         '<h3 class="page-heading mb-3">Latest Repos</h3>' +
-        '<div id="repos"></div>' +
     '';
 }

@@ -9,7 +9,7 @@ function getRepos(user) {
             ui.showRepos(response.data);
         },
         function () {
-            ui.showAlert('Repos not found.', 'alert alert-danger');
+            ui.showAlert('Repos not found.');
         }
     );
 }
@@ -23,7 +23,7 @@ function getUser(user, successCallback) {
                 successCallback();
             },
             function () {
-                ui.showAlert('User not found.', 'alert alert-danger');
+                ui.showAlert('User not found.');
             }
         );
     }, 1000);
