@@ -2,6 +2,7 @@ function UI() {
     this.container = document.querySelector('#searchContainer');
     this.search = document.querySelector('#search');
     this.profile = document.querySelector('#profile');
+    this.repos = document.querySelector('#repos');
 }
 
 UI.prototype.clearAlert = function () {
@@ -19,6 +20,41 @@ UI.prototype.showAlert = function (message, className) {
     div.appendChild(document.createTextNode(message));
     this.container.insertBefore(div, this.search);
     setTimeout(this.clearAlert, 3000);
+}
+
+UI.prototype.clearRepos = function () {
+    this.repos.innerHTML = '';
+}
+
+UI.prototype.showRepos = function (repos) {
+    var output = '';
+    repos.forEach(function(repo) {
+        output += '' +
+            '<div class="card card-body mb-2">' +
+                '<div class="row">' +
+                    '<div class="col-md-6">' +
+                        '<a' +
+                            ' href="' + repo.html_url + '"' +
+                            ' target="_blank"' +
+                            '>' + repo.name + '</a' +
+                        '>' +
+                    '</div>' +
+                    '<div class="col-md-6">' +
+                        '<span class="badge badge-primary">' +
+                            'Stars: ' + repo.stargazers_count +
+                        '</span>' +
+                        '<span class="badge badge-secondary">' +
+                            'Watchers: ' + repo.watchers_count +
+                        '</span>' +
+                        '<span class="badge badge-success">' +
+                            'Forks: ' + repo.forks_count +
+                        '</span>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '';
+    });
+    this.repos.innerHTML = output;
 }
 
 UI.prototype.clearProfile = function () {
