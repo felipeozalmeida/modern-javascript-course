@@ -31,13 +31,13 @@ UI.prototype.showProfile = function (user) {
             '<div class="row">' +
                 '<div class="col-md-3">' +
                     '<img' +
-                        'class="img-fluid mb-2"' +
-                        'src="' + user.avatar_url + '"' +
+                        ' class="img-fluid mb-2"' +
+                        ' src="' + user.avatar_url + '"' +
                     '>' +
                     '<a' +
-                        'class="btn btn-primary btn-block mb-4"' +
-                        'href="' + user.html_url + '"' +
-                        'target="_blank"' +
+                        ' class="btn btn-primary btn-block mb-4"' +
+                        ' href="' + user.html_url + '"' +
+                        ' target="_blank"' +
                         '>View Profile</a' +
                     '>' +
                 '</div>' +
