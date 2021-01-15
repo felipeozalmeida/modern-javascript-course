@@ -1,5 +1,28 @@
 function UI() {
+    this.container = document.querySelector('#searchContainer');
+    this.search = document.querySelector('#search');
     this.profile = document.querySelector('#profile');
+}
+
+UI.prototype.clearAlert = function () {
+    var alert = document.querySelector('#alert');
+    if (alert) {
+        alert.remove();
+    }
+}
+
+UI.prototype.showAlert = function (message, className) {
+    this.clearAlert();
+    var div = document.createElement('div');
+    div.id = 'alert';
+    div.className = className;
+    div.appendChild(document.createTextNode(message));
+    this.container.insertBefore(div, this.search);
+    setTimeout(this.clearAlert, 3000);
+}
+
+UI.prototype.clearProfile = function () {
+    this.profile.innerHTML = '';
 }
 
 UI.prototype.showProfile = function (user) {
@@ -7,7 +30,10 @@ UI.prototype.showProfile = function (user) {
         '<div class="card card-body mb-3">' +
             '<div class="row">' +
                 '<div class="col-md-3">' +
-                    '<img class="img-fluid mb-2" src="' + user.avatar_url + '">' +
+                    '<img' +
+                        'class="img-fluid mb-2"' +
+                        'src="' + user.avatar_url + '"' +
+                    '>' +
                     '<a' +
                         'class="btn btn-primary btn-block mb-4"' +
                         'href="' + user.html_url + '"' +

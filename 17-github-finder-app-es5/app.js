@@ -2,20 +2,26 @@ var github = new Github();
 var ui = new UI();
 var timeoutId = null;
 
+function getUser(user) {
+    timeoutId = setTimeout(function () {
+        github.getUser(
+            user,
+            function (response) {
+                ui.showProfile(response.data);
+            },
+            function () {
+                ui.showAlert('User not found.', 'alert alert-danger');
+            }
+        );
+    }, 1000);
+}
+
 function handleSearchUserInput(e) {
     clearTimeout(timeoutId);
 
     if (e.target.value) {
-        timeoutId = setTimeout(function () {
-            github.getUser(
-                e.target.value,
-                function (response) {
-                    ui.showProfile(response.data);
-                },
-                function (error) {
-                    console.log(error);
-                }
-            );
-        }, 1000);
+        getUser(e.target.value);
+    } else {
+        ui.clearProfile();
     }
 }
