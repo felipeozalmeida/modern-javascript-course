@@ -1,14 +1,16 @@
 var github = new Github();
+var ui = new UI();
 var timeoutId = null;
 
 function handleSearchUserInput(e) {
+    clearTimeout(timeoutId);
+
     if (e.target.value) {
-        clearTimeout(timeoutId);
         timeoutId = setTimeout(function () {
             github.getUser(
                 e.target.value,
                 function (response) {
-                    console.log(response);
+                    ui.showProfile(response.data);
                 },
                 function (error) {
                     console.log(error);
